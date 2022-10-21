@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Logo extends StatefulWidget {
-  final double dimension;
   final Color color;
+  final double dimension;
   const Logo({
     super.key,
-    required this.dimension,
     required this.color,
+    required this.dimension,
   });
 
   @override
