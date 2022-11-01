@@ -21,7 +21,7 @@ class _LogoState extends State<Logo> {
       width: widget.dimension,
       height: widget.dimension,
       child: SvgPicture.asset(
-        "assets/logo.svg",
+        "assets/images/logo.svg",
         width: widget.dimension,
         height: widget.dimension,
         color: widget.color,

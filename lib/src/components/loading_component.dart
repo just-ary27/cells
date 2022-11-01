@@ -1,45 +1,40 @@
-import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MyWidget extends StatefulWidget {
+class CellProgressIndicator extends StatefulWidget {
   final Color color;
   final double dimension;
-  const MyWidget({
+  const CellProgressIndicator({
     super.key,
     required this.color,
     required this.dimension,
   });
 
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<CellProgressIndicator> createState() => _CellProgressIndicatorState();
 }
 
-class _MyWidgetState extends State<MyWidget> {
-  late Timer _timer;
+class _CellProgressIndicatorState extends State<CellProgressIndicator>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   @override
   void initState() {
-    startTimer();
     super.initState();
-  }
-
-  void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {});
-    });
+    _controller = AnimationController(
+      duration: const Duration(seconds: 6),
+      vsync: this,
+    )..repeat();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: pi * sin(DateTime.now().second / 15),
+    return RotationTransition(
+      turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
       child: SizedBox(
+        width: widget.dimension,
+        height: widget.dimension,
         child: SvgPicture.asset(
-          "",
-          width: widget.dimension,
-          height: widget.dimension,
+          "assets/images/logo.svg",
           color: widget.color,
         ),
       ),
@@ -48,7 +43,7 @@ class _MyWidgetState extends State<MyWidget> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _controller.dispose();
     super.dispose();
   }
 }
